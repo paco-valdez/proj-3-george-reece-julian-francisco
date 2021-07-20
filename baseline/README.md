@@ -102,3 +102,7 @@ purchases_by_example2.show()
 ```
 
 ## Part 3: Answer business questions using dataframe
+
+1. How many purchases are being made by host.
+2. How many users buy a sword and join a guild
+3. How many users buy something else and a sword.
