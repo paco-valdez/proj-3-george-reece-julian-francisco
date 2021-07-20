@@ -8,21 +8,20 @@ from kafka.errors import NoBrokersAvailable
 from flask import Flask, request
 
 app = Flask(__name__)
-producer = None
-debug = True
+app.producer = None
 
 
 def log_to_kafka(topic, event):
-    if producer is None:
+    if app.producer is None:
         try:
-            producer = KafkaProducer(bootstrap_servers='kafka:29092')
+            app.producer = KafkaProducer(bootstrap_servers='kafka:29092')
         except NoBrokersAvailable:
-            if debug:
+            if app.debug:
                 print('NoBrokersAvailable')
                 return
             raise NoBrokersAvailable
     event.update(request.headers)
-    producer.send(topic, json.dumps(event).encode())
+    app.producer.send(topic, json.dumps(event).encode())
 
 
 @app.route("/")
@@ -61,7 +60,7 @@ def join_a_guild():
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    if (request.method == 'GET'):
+    if request.method == 'GET':
         default_event = {'event_type': 'default'}
         log_to_kafka('events', default_event)
         return "This is the default response!\n"
@@ -69,56 +68,51 @@ def home():
 
 # Store Interactions
 
-class Purchase(BaseModel):
-    request_id: int
-    user_id: int
-    item_id: int
-    item_kind: Optional[str] = None
-    item_type: Optional[str] = None
-    quantity: int
-    price_paid: float
-    vendor_id: int
-    vendor_quantity_avail: Optional[int] = None
-    vendor_list_price: Optional[float] = None
-    client_timestamp: Optional[datetime] = None
-    request_status = "failed"
+# class Purchase(BaseModel):
+#     request_id: int
+#     user_id: int
+#     item_id: int
+#     item_kind: Optional[str] = None
+#     item_type: Optional[str] = None
+#     quantity: int
+#     price_paid: float
+#     vendor_id: int
+#     vendor_quantity_avail: Optional[int] = None
+#     vendor_list_price: Optional[float] = None
+#     client_timestamp: Optional[datetime] = None
+#     request_status = "failed"
 
 
-class PurchaseEvent(Purchase):
+class PurchaseEvent(BaseModel):
     user_id: Optional[int] = None
     item_id: Optional[int] = None
     quantity: Optional[int] = None
     price_paid: Optional[float] = None
     vendor_id: Optional[int] = None
-    addl_data: Optional[str] = None
-    api_string: str
+    api_string: Optional[str]
+    request_status: Optional[str]
 
 
 @app.route("/purchase", methods=['POST'])
-def purchase(purchase_details):
+def purchase():
     # Normal behavior first
     try:
         # Validate JSON and copy if works, need to replace with proper inputs
-        Purchase(**purchase_details)
-        purchase = dict(purchase_details)  # May not be necessary in API context
-        purchase["api_string"] = json.dumps(purchase_details)  # replace w full str
-        # Force into full schema and add additional fields to JSON blob
-        purchase_event = PurchaseEvent(**purchase).__dict__
-        addl_data = {}
-        for k, v in purchase_details.items():
-            if k not in purchase_event.keys():
-                addl_data[k] = v
-        purchase_event["addl_data"] = addl_data
+        content = request.get_json(silent=True)
+        purchase_event = PurchaseEvent(**content)
+        purchase_event.api_string = json.dumps(content)  # replace w full str
+        purchase_event.request_status = 'success'
     # If data missing required fields, log request and errors
     except ValidationError as e:
+        # we need to get the json data again to keep the linter happy.
+        content = request.get_json(silent=True)
         purchase_event = PurchaseEvent(**{
-            "request_id": purchase_details["request_id"],
             "request_status": "invalid",
-            "addl_data": json.dumps(json.loads(e.json())),
-            "api_string": json.dumps(purchase_details)
-        }).__dict__
+            "api_string": json.dumps(content)
+        })
+    purchase_event = purchase_event.dict()
     log_to_kafka("purchases", purchase_event)
-    return f"""{purchase_event["request_id"]}: {purchase_event["request_status"]}"""
+    return purchase_event
 
 
 # TO DO:
@@ -170,6 +164,10 @@ def guild_action(guild_action_details):
     log_to_kafka("guild_actions", guild_action_event)
     return f"""{guild_action_event["request_id"]}: {guild_action_event["request_status"]}"""
 
+
 # TO DO:
 #   1. Determine and implement correct input path
 #   2. Add GET method
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)
