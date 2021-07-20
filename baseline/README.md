@@ -104,7 +104,7 @@ purchases_by_example2.show()
 ## Part 3: Answer business questions using dataframe
 
 #### Potential Business Questions
-1. How many purchases are being made by host.
+1. How many purchases are being made by host?
 2. How many users both buy a sword and join a guild?
 3. What’s the most common vendor for sword buying?
 4. Do users tend to buy swords first or join guilds first?
