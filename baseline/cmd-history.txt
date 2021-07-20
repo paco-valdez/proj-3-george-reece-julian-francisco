@@ -1,0 +1,452 @@
+    1  mkdir ~/w205
+    2  cd ~/w205
+    3  git clone https://github.com/mids-w205-chakraverty/assignment-1-george-jiang-ubc.git
+    4  ls
+    5  cd assignment-1-george-jiang-ubc
+    6  git branch assignment
+    7  git checkout assignment
+    8  git status
+    9  git add .
+   10  git commit -m "Answered the  Question"
+   11  git commit -m"Answered the  Question"
+   12  git config --global user.name "george-jiang-ubc"
+   13  git config --global user.email "george.jiang@berkeley.edu"
+   14  git commit -m "Answered the  Question"
+   15  git push origin assignment
+   16  git config --global user.name "george-jiang"
+   17  git status
+   18  git add .
+   19  git commit -m "Answered the  Question"
+   20  git push origin assignment
+   21  git add .
+   22  git commit -m "Answered the  Question"
+   23  git push origin assignment
+   24  git add .
+   25  git commit -m "Answered the  Question"
+   26  git push origin assignment
+   27  ls
+   28  cd w205
+   29  git clone https://github.com/mids-w205-chakraverty/project-1-george-jiang-ubc.git
+   30  ls
+   31  ls -l
+   32  ls -l -h
+   33  cd project-1-george-jiang-ubc
+   34  git branch project1
+   35  git checkout project1
+   36  ls
+   37  git branch assignment
+   38  git checkout assignment
+   39  git status
+   40  git status
+   41  git add .
+   42  git commit . -m"WIP"
+   43  git push origin assignment
+   44  git push origin assignment
+   45  git pull https://github.com/mids-w205-chakraverty/project-1-george-jiang-ubc.git
+   46  git push origin assignment
+   47  git remote -v
+   48  git pull origin assignment
+   49  cd ..
+   50  git clone origin assignment
+   51  cd project-1-george-jiang-ubc
+   52  git clone origin assignment
+   53  git remote -v
+   54  git push origin assignment
+   55  cd ..
+   56  git clone https://github.com/mids-w205-chakraverty/project-1-george-jiang-ubc.git
+   57  git clone https://github.com/mids-w205-chakraverty/project-1-george-jiang-ubc.git
+   58  git clone https://github.com/mids-w205-chakraverty/project-1-george-jiang-ubc.git
+   59  ls
+   60  cd w205
+   61  git clone https://github.com/mids-w205-chakraverty/project-1-george-jiang-ubc.git
+   62  ls
+   63  cd project-1-george-jiang-ubc
+   64  git pull origin assignment
+   65  git branch --set-upstream-to Branch assignment
+   66  git checkout master
+   67  git pull origin assignment
+   68  git pull origin assignment --allow-unrelated-histories
+   69  checkout branch assignment
+   70  git checkout branch assignment
+   71  git checkout assignment
+   72  git clone https://github.com/mids-w205-chakraverty/project-1-george-jiang-ubc.git
+   73  cd ..
+   74  ls
+   75  ls
+   76  docker ps
+   77  ls
+   78  cd w205
+   79  ls
+   80  cd project-1-george-jiang-ubc
+   81  git add .
+   82  git commit . -m"WIP"
+   83  git push origin project1
+   84  git add .
+   85  git commit . -m"WIP"
+   86  git push origin project1
+   87  git push origin project1
+   88  git add .
+   89  git commit . -m"WIP"
+   90  git push origin project1
+   91  git push origin project1
+   92  git add .
+   93  git commit . -m"WIP"
+   94  git push origin project1
+   95  git push origin project1
+   96  git push origin project1
+   97  git add .
+   98  git commit . -m"WIP"
+   99  git push origin project1
+  100  pwd
+  101  docker ps
+  102  cd w205
+  103  ls
+  104  git clone https://github.com/mids-w205-chakraverty/project-1-george-jiang-ubc.git
+  105  git branch project1
+  106  ls
+  107  cd project-1-george-jiang-ubc
+  108  git branch project1
+  109  git checkout project1
+  110  git status
+  111  git push origin project1
+  112  git remote set-url origin git@github.com:mids-w205-chakraverty/project-1-george-jiang-ubc.git
+  113  git status
+  114  git add .
+  115  git commit . -m"WIP"
+  116  git push origin project1
+  117  git remote set-url origin https://github.com/mids-w205-chakraverty/project-1-george-jiang-ubc.git
+  118  git push origin project1
+  119  git add .
+  120  git commit . -m"WIP"
+  121  git push origin project1
+  122  git add .
+  123  git commit . -m"WIP"
+  124  git push origin project1
+  125  git push origin project1
+  126  ls
+  127  git add .
+  128  git commit . -m"WIP"
+  129  git push origin project1
+  130  ls
+  131  bq query --use_legacy_sql=false '
+  132          SELECT count(*)
+  133          FROM
+  134          bigquery-public-data.san_francisco.bikeshare_trips'
+  135  bq query --use_legacy_sql=false '
+  136          SELECT count(*)
+  137          FROM
+  138          bigquery-public-data.san_francisco.bikeshare_trips'
+  139  bq query --use_legacy_sql=false '
+  140          SELECT count(*)
+  141          FROM
+  142          bigquery-public-data.san_francisco.bikeshare_trips '
+  143  bq query --use_legacy_sql=false 'select count(distinct trip_id) as total_trips from bigquery-public-data.san_francisco.bikeshare_trips'
+  144          bq query --use_legacy_sql=false '
+  145              select count(distinct bike_number) as total_bikes
+  146              from bigquery-public-data.san_francisco.bikeshare_trips
+  147              '
+  148          bq query --use_legacy_sql=false '
+  149              select count(distinct trip_id) as total_trips 
+  150              from bigquery-public-data.san_francisco.bikeshare_trips
+  151              '
+  152          bq query --use_legacy_sql=false '
+  153              select min(start_date) as earliest_date,
+  154                     max(end_date) as latest_date
+  155              from bigquery-public-data.san_francisco.bikeshare_trips
+  156              '
+  157  bq query --use_legacy_sql=false '
+  158                          SELECT  
+  159                            case when EXTRACT(hour FROM start_date) between 5 and 11 then 'Morning'
+  160                                 when EXTRACT(hour FROM start_date) between 12 and 18 then 'Afternoon'
+  161                                 else 'Evening' end as Time_Of_Day,
+  162                            COUNT(TRIP_ID) as Total_Trips
+  163                          FROM bigquery-public-data.san_francisco.bikeshare_trips
+  164                          GROUP BY 1
+  165                          '
+  166  bq query --use_legacy_sql=false '
+  167                          SELECT  
+  168                            case when EXTRACT(hour FROM start_date) between 5 and 11 then "Morning"
+  169                                 when EXTRACT(hour FROM start_date) between 12 and 18 then "Afternoon"
+  170                                 else "Evening" end as Time_Of_Day,
+  171                            COUNT(TRIP_ID) as Total_Trips
+  172                          FROM bigquery-public-data.san_francisco.bikeshare_trips
+  173                          GROUP BY 1
+  174                          '
+  175  git add .
+  176  git commit . -m"WIP"
+  177  git push origin project1
+  178  git push origin project1
+  179  git add .
+  180  git commit . -m"WIP"
+  181  git push origin project1
+  182  git push origin project1
+  183  git add .
+  184  git commit . -m"WIP"
+  185  git push origin project1
+  186  docker run -it --rm -v ~/w205:/w205 midsw205/base bash
+  187  pwd
+  188  ls
+  189  cd redis-stanalone
+  190  cp ../course-content/05-Storing-Data-II/example-0-docker-compose.yml
+  191  cp --help
+  192  docker run redis
+  193  pwd
+  194  mkdir redis-stanalone
+  195  ls
+  196  git clone https://github.com/mids-w205-chakraverty/course-content.git
+  197  git clone https://github.com/mids-w205-chakraverty/course-content.git
+  198  ls
+  199  cd redis-stanalone
+  200  cp ../course-content/05-Storing-Data-II/example-0-docker-compose.yml docker-compose.yml
+  201  docker-compose up -d
+  202  docker-compose ps
+  203  import redis
+  204  ls
+  205  cp ../course-content/05-Storing-Data-II/example-0-docker-compose.yml
+  206  cp ../course-content/05-Storing-Data-II/example-0-docker-compose.yml
+  207  cd ..
+  208  ls
+  209  cd redis-stanalone
+  210  cp ../course-content/05-Storing-Data-II/example-0-docker-compose.yml
+  211  cp ../course-content/05-Storing-Data-II/example-0-docker-compose.yml
+  212  cp ../course-content/05-Storing-Data-II/example-0-docker-compose.yml docker-compose.yml
+  213  ls
+  214  docker-compose up -d
+  215  ipython
+  216  cd w205
+  217  git clone https://github.com/mids-w205-chakraverty/course-content.git
+  218  cd ~/w205/course-content
+  219  git pull --all
+  220  mkdir ~/w205/redis-standalone
+  221  cd ~/w205/redis-standalone
+  222  cp ../course-content/05-Storing-Data-II/example-0-docker-compose.yml
+  223  cp ../course-content/05-Storing-Data-II/example-0-docker-compose.yml docker-compose.yml
+  224  docker-compose up -d
+  225  docker-compose ps
+  226  docker-compose down
+  227  docker-compose ps
+  228  docker-compose up -d
+  229  cp ../course-content/05-Storing-Data-II/example-1-docker-compose.yml docker-compose.yml
+  230  docker-compose up -d
+  231  docker-compose logs redis
+  232  ipython
+  233  docker-compose ps
+  234  docker-compose exec mids bash
+  235  docker-compose down
+  236  ls
+  237  cat docker-compose.yml 
+  238  clear
+  239  docker compose up -d
+  240  docker-compose up -d
+  241  docker-compose ps
+  242  ipython
+  243  docker-compose downn
+  244  docker-compose down
+  245  docker-compose up -d
+  246  docker-compose ps
+  247  ipython
+  248  pip install redis
+  249  ipython
+  250  docker-compose down
+  251  docker-compose up -d
+  252  docker-compose down
+  253  docker-compose up -d
+  254  ipython
+  255  ls
+  256  ls
+  257  pwd
+  258  cd w205
+  259  git clone https://github.com/mids-w205-chakraverty/project-2-george-jiang-ubc.git
+  260  cd project-2-george-jiang-ubc/
+  261  git branch assignment
+  262  git checkout assignment
+  263  ls
+  264  cd ..
+  265  pwd
+  266  mkdir spark-with-kafka
+  267  pwdclear
+  268  pwd
+  269  cd spark-with-kafka/
+  270  cp ../course-content/07-Sourcing-Data/docker-compose.yml 
+  271  cp ../course-content/07-Sourcing-Data/docker-compose.yml .
+  272  ls
+  273  docker ps
+  274  clear
+  275  docker-compose up -d
+  276  docker-compose ps
+  277  docker-compose logs zookeeper
+  278  docker-compose exec kafka   kafka-topics     --create     --topic foo     --partitions 1     --replication-factor 1     --if-not-exists     --zookeeper zookeeper:32181
+  279  docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper zookeeper:32181
+  280  docker-compose exec kafka   bash -c "seq 42 | kafka-console-producer \
+  281      --request-required-acks 1 \
+  282      --broker-list kafka:29092 \
+  283      --topic foo && echo 'Produced 42 messages.'"
+  284  docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper zookeeper:32181
+  285  clear
+  286  docker-compose exec kafka bash -c "seq 42 | kafka-console-producer --request-required-acks 1 --broker-list kafka:29092 --topic foo && echo 'Produced 42 messages.'"
+  287  docker-compose exec spark pyspark
+  288  cd ..
+  289  curl -L -o github-example-large.json https://goo.gl/Y4MD58
+  290  ls
+  291  cd course-content
+  292  ls
+  293  git pull all
+  294  git status
+  295  cd ..
+  296  git clone https://github.com/mids-w205-chakraverty/course-content.git
+  297  git clone https://github.com/mids-w205-chakraverty/course-content.git
+  298  git clone https://github.com/mids-w205-chakraverty/course-content.git
+  299  mkdir ~/w205/spark-with-kafka-and-hdfs
+  300  cd spark-with-kafka-and-hdfs/
+  301  cp ~/w205/course-content//08-Querying-Data/docker-compose.yml .
+  302  cd ..
+  303  curl -L -o players.json https://goo.gl/vsuCpZ
+  304  cd spark-with-kafka-and-hdfs/
+  305  docker-compose up -d
+  306  curl -L -o players.json https://goo.gl/vsuCpZ
+  307  docker-compose logs -f kafka
+  308  docker-compose exec cloudera hadoop fs -ls /tmp/
+  309  docker-compose exec kafka   kafka-topics     --create     --topic players     --partitions 1     --replication-factor 1     --if-not-exists     --zookeeper zookeeper:32181
+  310  docker-compose exec mids   bash -c "cat /w205/<your_workspace>/players.json \
+  311      | jq '.[]' -c \
+  312  docker-compose exec mids \
+  313    bash -c "cat /w205/players.json     | jq '.[]' -c     | kafkacat -P -b kafka:29092 -t players"
+  314  docker-compose exec mids   bash -c "cat /w205/players.json \
+  315      | jq '.[]' -c \
+  316      | kafkacat -P -b kafka:29092 -t players"
+  317  docker-compose exec mids bash -c "cat /w205/players.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t players"
+  318  docker-compose exec spark pyspark
+  319  docker-compose exec cloudera hadoop fs -ls /tmp/
+  320  docker-compose exec cloudera hadoop fs -ls /tmp/players/
+  321  players.show() docker-compose exec spark pyspark
+  322  docker-compose exec spark pyspark
+  323  docker-compose ps
+  324  docker-compose logs -f kafka
+  325  docker-compose down -d
+  326  docker-compose down
+  327  docker-compose up -d
+  328  docker-compose logs -f kafka
+  329  docker-compose exec cloudera hadoop fs -ls /tmp/
+  330  docker-compose exec cloudera hadoop fs -ls /tmp/
+  331  docker-compose exec kafka   kafka-topics     --create     --topic players     --partitions 1     --replication-factor 1     --if-not-exists     --zookeeper zookeeper:32181
+  332  docker-compose exec kafka   kafka-topics     --create     --topic players     --partitions 1     --replication-factor 1     --if-not-exists     --zookeeper zookeeper:32181
+  333  docker-compose logs -f kafka
+  334  docker-compose exec mids bash -c "cat /w205/players.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t players"
+  335  docker-compose exec spark pyspark
+  336  ls
+  337  cd w205
+  338  cd project-2-george-jiang-ubc/
+  339  ls
+  340  curl -L -o assessment-attempts-20180128-121051-nested.json https://goo.gl/ME6hjp`
+  341  ls
+  342  ls
+  343  ls
+  344  curl -L -o players.json https://goo.gl/vsuCpZ
+  345  curl -L -o assessment-attempts-20180128-121051-nested.json https://goo.gl/ME6hjp
+  346  docker-compose up -d
+  347  cp ~/w205/course-content//08-Querying-Data/docker-compose.yml .
+  348  docker-compose up -d
+  349  docker-compose logs -f kafka
+  350  docker-compose exec cloudera hadoop fs -ls /tmp/
+  351  docker-compose exec kafka   kafka-topics     --create     --topic assessment     --partitions 1     --replication-factor 1     --if-not-exists     --zookeeper zookeeper:32181
+  352  docker-compose exec mids   bash -c "cat /w205/assessment-attempts-20180128-121051-nested.json \
+  353      | jq '.[]' -c \
+  354      | kafkacat -P -b kafka:29092 -t assessment"
+  355  docker-compose exec mids   bash -c "cat /w205/project-2-george-jiang-ubc/assessment-attempts-20180128-121051-nested.json \
+  356      | jq '.[]' -c \
+  357      | kafkacat -P -b kafka:29092 -t assessment"
+  358  docker-compose exec spark pyspark
+  359  docker-compose exec spark pyspark
+  360  docker-compose exec spark cat /root/.python_history
+  361  history > george-jiang-history.txt
+  362  history > george-jiang-history.txt
+  363  docker-compose exec spark cat /root/.python_history > spark-history.txt
+  364  history > cmd-history.txt
+  365  git add .
+  366  git commit . -m'Project 2 Finished'
+  367  git remote
+  368  git push origin assignment
+  369  git add .
+  370  git commit . -m'Project 2 Finished'
+  371  git push origin assignment
+  372  git add .
+  373  git commit . -m'Project 2 Finished'
+  374  git push origin assignment
+  375  git add .
+  376  git commit . -m'Project 2 Finished'
+  377  git push origin assignment
+  378  ls
+  379  cd w205/project-2-george-jiang-ubc/
+  380  ls
+  381  docker-compose exec cloudera hadoop fs -ls /tmp/
+  382  docker-compose exec cloudera hadoop fs -ls /tmp/assessment/
+  383  history > george-jiang-history.txt
+  384  pip3 install findspark
+  385  jupyter notebook
+  386  jupyter notebook
+  387  ls
+  388  docker-compose exec spark cat /root/.python_history
+  389  history > george-jiang-history.txt
+  390  cd w205/flask-with-kafka/
+  391  docker-compose exec mids curl http://localhost:5000/
+  392  docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+  393  cd w205/flask-with-kafka/
+  394  docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+  395  docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t events -o beginning -e"
+  396  docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+  397  docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+  398  docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+  399  docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t events -o beginning -e"
+  400  ls
+  401  cd w205
+  402  mkdir flask-with-kafka
+  403  ls
+  404  cd flask-with-kafka/
+  405  docker-compose up -d
+  406  docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka/basic_game_api.py flask run
+  407   docker-compose exec kafka    kafka-topics      --create      --topic events      --partitions 1      --replication-factor 1      --if-not-exists      --zookeeper zookeeper:32181
+  408  docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka/game_api.py flask run
+  409  mkdir ~/w205/flask-with-kafka-and-spark/
+  410  ls
+  411  cd w205
+  412  ls
+  413  mkdir flask-with-kafka-and-spark/
+  414  ls
+  415  cd flask-with-kafka-and-spark/
+  416  cp ~/w205/course-content/10-Transforming-Streaming-Data/docker-compose.yml .
+  417  docker-compose up -d
+  418  docker-compose exec kafka   kafka-topics     --create     --topic events     --partitions 1     --replication-factor 1     --if-not-exists --zookeeper zookeeper:32181
+  419  docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka-and-spark/game_api_with_json_events.py flask run --host 0.0.0.0
+  420  docker-compose exec mids curl http://localhost:5000/
+  421  docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+  422  docker-compose exec mids curl http://0.0.0.0:5000/
+  423  docker-compose exec mids   env FLASK_APP=/w205/flask-with-kafka-and-spark/game_api_with_json_events.py   flask run --host 0.0.0.0
+  424  docker-compose exec mids curl http://localhost:5000/
+  425  docker-compose exec mids   env FLASK_APP=/w205/flask-with-kafka-and-spark/game_api_with_json_events.py   flask run --host 0.0.0.0
+  426  docker-compose exec mids curl http://localhost:5000/
+  427  docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+  428  ls
+  429  cd ~/w205/flask-with-kafka-and-spark/
+  430  docker-compose up -d
+  431  docker-compose exec kafka   kafka-topics     --create     --topic events     --partitions 1     --replication-factor 1     --if-not-exists --zookeeper zookeeper:32181
+  432  docker-compose exec kafka   kafka-topics     --create     --topic events     --partitions 1     --replication-factor 0     --if-not-exists --zookeeper zookeeper:32181
+  433  zookeeper.connect=zk1.beta:2181,zk2.beta:2181,zk3.beta:2181/kafka
+  434  dock-compose down
+  435  docker-compose down -d
+  436  docker ps -q
+  437  docker-compose up -d
+  438  docker rm $(docker ps -a -q)
+  439  docker-compose up -d
+  440  docker container kill $(docker ps -q) 
+  441  cd w205/proj-3-george-reece-julian-francisco/baseline
+  442  docker-compose exec mids curl http://0.0.0.0:5000/purchase_a_sword
+  443  docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/
+  444  docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/purchase_a_sword
+  445  docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/
+  446  docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/purchase_a_sword
+  447  docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/purchase_a_sword
+  448  docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/filtered_writes.py
+  449  docker-compose exec cloudera hadoop fs -ls /tmp/purchases/
+  450  docker-compose exec spark   env     PYSPARK_DRIVER_PYTHON=jupyter     PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root'   pyspark
+  451  docker-compose exec spark pyspark
+  452  history > cmd-history.txt
