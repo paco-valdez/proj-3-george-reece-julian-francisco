@@ -65,23 +65,17 @@ def purchase():
         event = PurchaseEvent(**content)
         event.api_string = json.dumps(content)  # replace w full str
         event.request_status = 'success'
-         # Add any extra fields to addl_data field (JSON blob)
-        addl_data = {}
-        for k, v in content.items():
-            if k not in event.keys():
-                addl_data[k] = v
-        event["addl_data"] = json.loads(addl_data)
     # If data missing required fields, log request and errors
     except ValidationError as e:
         # we need to get the json data again to keep the linter happy.
         content = request.get_json(silent=True)
-        purchase_event = PurchaseEvent(**{
+        event = PurchaseEvent(**{
             "request_status": "invalid",
             "api_string": json.dumps(content)
         })
-    purchase_event = purchase_event.dict()
-    log_to_kafka("purchases", purchase_event)
-    return purchase_event
+    event = event.dict()
+    log_to_kafka("purchases", event)
+    return event
 
 # Guild Interactions
 
@@ -95,12 +89,12 @@ def purchase():
 #     request_status = "failed"
 
 
-class GuildActionEvent():
+class GuildActionEvent(BaseModel):
     user_id: Optional[int] = None
     guild_id: Optional[int] = None
     action: Optional[str] = None
     addl_data: Optional[str] = None
-    api_string: str
+    api_string: Optional[str]
     request_status: Optional[str] = 'incomplete'
 
 @app.route("/guild", methods=['POST'])
@@ -112,17 +106,11 @@ def guild_action():
         event = GuildActionEvent(**content)
         event.api_string = json.dumps(content)  # replace w full str
         event.request_status = 'success'
-        # Add any extra fields to addl_data field (JSON blob)
-        addl_data = {}
-        for k, v in content.items():
-            if k not in event.keys():
-                addl_data[k] = v
-        event.addl_data = json.loads(addl_data)
     # If data missing required fields, log request and errors
     except ValidationError as e:
         # we need to get the json data again to keep the linter happy.
         content = request.get_json(silent=True)
-        event = PurchaseEvent(**{
+        event = GuildActionEvent(**{
             "request_status": "invalid",
             "api_string": json.dumps(content)
         })
