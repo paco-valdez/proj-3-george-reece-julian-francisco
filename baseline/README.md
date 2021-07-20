@@ -76,7 +76,7 @@ ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/purchase_a_sword
 ```
 
 
-### Extract test data from Kafka, land them into HDFS/parquet to make them available for analysis using Presto.
+### Extract test data from Kafka, land them into HDFS/parquet to make them available for analysis using Spark.
 
 ```
 docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/extract_events.py
