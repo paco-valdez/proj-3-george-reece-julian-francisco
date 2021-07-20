@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import json
-from typing import Optional
+from typing import Optional, Literal
 from pydantic import BaseModel, ValidationError
 from kafka import KafkaProducer
 from kafka.errors import NoBrokersAvailable
@@ -48,8 +48,8 @@ def home():
 
 
 class PurchaseEvent(BaseModel):
-    user_id: Optional[int] = None
-    item_id: Optional[int] = None
+    user_id: int
+    item_id: int
     quantity: Optional[int] = None
     price_paid: Optional[float] = None
     vendor_id: Optional[int] = None
@@ -90,9 +90,9 @@ def purchase():
 
 
 class GuildActionEvent(BaseModel):
-    user_id: Optional[int] = None
-    guild_id: Optional[int] = None
-    action: Optional[str] = None
+    user_id: int
+    guild_id: int
+    action: Literal["join", "leave", "create", "promote"]
     addl_data: Optional[str] = None
     api_string: Optional[str]
     request_status: Optional[str] = 'incomplete'
