@@ -66,9 +66,15 @@ docker-compose exec mids \
 ### Use Apache Bench to generate test data for your pipeline
 
 ```
-docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/
-docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/purchase_a_sword
+docker-compose exec mids create_test_data.sh
 ```
+
+create_test_data.sh
+```
+ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/
+ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/purchase_a_sword
+```
+
 
 ### Extract test data from Kafka, land them into HDFS/parquet to make them available for analysis using Presto.
 
