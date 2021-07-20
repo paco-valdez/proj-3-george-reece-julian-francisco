@@ -92,7 +92,7 @@ def purchase():
 class GuildActionEvent(BaseModel):
     user_id: int
     guild_id: int
-    action: Literal["join", "leave", "create", "promote"]
+    action: Optional[str] = None
     addl_data: Optional[str] = None
     api_string: Optional[str]
     request_status: Optional[str] = 'incomplete'
