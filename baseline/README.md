@@ -105,9 +105,17 @@ purchases_by_example2.show()
 
 #### Potential Business Questions
 1. How many purchases are being made by host?
-2. How many users both buy a sword and join a guild?
-3. What’s the most common vendor for sword buying?
-4. Do users tend to buy swords first or join guilds first?
-5. What guilds do users leave the most?
-6. What swords are purchased most at a discount?
+  - `	SELECT count(user_id) FROM purchases WHERE host='user1.comcast.com'" `
+2. How many purchases did each user name?
+  - `	SELECT count(user_id) FROM purchases WHERE host='user1.comcast.com'" `
+3. How many users both buy a sword and join a guild?
+  - `SELECT user_id, count(user_id) FROM purchases, guildaction WHERE EXISTS (Select user_id from purchases, guildaction WHERE purchases.user_id = guildaction.user_id AND guildaction.action = 'Join')`
+4. What’s the most common vendor for sword buying?
+  - `	1. SELECT vendor_id, count(vendor_id) as count FROM purchases ORDER BY count`
+
+5. Do users tend to buy swords first or join guilds first?
+6. What guilds do users leave the most?
+  - `SELECT guild_id FROM guildaction WHERE action=leave GROUP BY action=leave ORDER BY count(guild_id)`
+
+7. What swords are purchased most at a discount?
 
