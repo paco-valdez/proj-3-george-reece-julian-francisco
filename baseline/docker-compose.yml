@@ -59,7 +59,7 @@ services:
     command: bash
 
   mids:
-    image: midsw205/base:0.1.9
+    image: python:3.7-alpine
     stdin_open: true
     tty: true
     volumes:

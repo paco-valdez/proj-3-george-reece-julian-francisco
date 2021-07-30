@@ -30,6 +30,19 @@ Get the necessary docker-compose for project 3
 docker-compose up -d
 ```
 
+### Install requirements for Rest API
+
+```
+docker-compose exec mids pip install -r
+ /w205/proj-3-george-reece-julian-francisco/baseline/requirements.txt
+```
+
+### Install kafkacat and Apache Bench
+```
+docker-compose exec mids apk add kafkacat
+docker-compose exec mids apk add apache2-utils
+```
+
 ### Setup a Hadoop folder in the cluster
 
 ```
@@ -44,7 +57,7 @@ docker-compose exec kafka \
     --create \
     --topic events \
     --partitions 1 \
-    --replication-factor 0 \
+    --replication-factor 1 \
     --if-not-exists --zookeeper zookeeper:32181
 ```
 
@@ -66,13 +79,7 @@ docker-compose exec mids \
 ### Use Apache Bench to generate test data for your pipeline
 
 ```
-docker-compose exec mids create_test_data.sh
-```
-
-create_test_data.sh
-```
-ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/
-ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/purchase_a_sword
+docker-compose exec mids /w205/proj-3-george-reece-julian-francisco/baseline/create_test_data.sh
 ```
 
 
