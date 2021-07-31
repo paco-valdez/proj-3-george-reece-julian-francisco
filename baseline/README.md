@@ -16,10 +16,6 @@
 cd ~/w205/proj-3-george-reece-julian-francisco/baseline/
 ```
 
-```
-cp ~/w205/course-content/12-Querying-Data-II/docker-compose.yml .
-```
-
 ::: notes
 Get the necessary docker-compose for project 3
 :::
