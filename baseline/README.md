@@ -16,12 +16,6 @@
 cd ~/w205/proj-3-george-reece-julian-francisco/baseline/
 ```
 
-::: notes
-Get the necessary docker-compose for project 3
-:::
-
-### Spin up the cluster
-
 ```
 docker-compose up -d
 ```
@@ -94,14 +88,14 @@ docker-compose exec mids /w205/proj-3-george-reece-julian-francisco/baseline/cre
 ```
 
 
-### Extract test data from Kafka, land them into HDFS/parquet to make them available for analysis using Spark.
+### Extract test data from Kafka, land them into HDFS/parquet to make them available for analysis.
 
 ```
 docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/extract_events.py
 docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/filtered_writes.py
 ```
 
-## Part 2: Extract the data from the HDFS/parquet to Spark SQL for analysis
+## Part 2: Optional Extract the data from the HDFS/parquet to Spark SQL
 
 ### Spin up a pyspark process using the `spark` container
 
@@ -119,21 +113,24 @@ purchases_by_example2 = spark.sql("select * from purchases where host='user1.com
 purchases_by_example2.show()
 ```
 
-## Part 3: Answer business questions using dataframe
+## Part 3: Show Pipeline creates data table in Hadoop using Presto
 
-#### Potential Business Questions
-1. How many purchases are being made by host?
-  - `	SELECT count(user_id) FROM purchases WHERE host='user1.comcast.com'" `
-2. How many purchases did each user name?
-  - `	SELECT count(user_id) FROM purchases WHERE host='user1.comcast.com'" `
-3. How many users both buy a sword and join a guild?
-  - `SELECT user_id, count(user_id) FROM purchases, guildaction WHERE EXISTS (Select user_id from purchases, guildaction WHERE purchases.user_id = guildaction.user_id AND guildaction.action = 'Join')`
-4. What’s the most common vendor for sword buying?
-  - `	1. SELECT vendor_id, count(vendor_id) as count FROM purchases ORDER BY count`
+### Launch Presto
+```
+docker-compose exec presto presto --server presto:8080 --catalog hive --schema default
+```
 
-5. Do users tend to buy swords first or join guilds first?
-6. What guilds do users leave the most?
-  - `SELECT guild_id FROM guildaction WHERE action=leave GROUP BY action=leave ORDER BY count(guild_id)`
+### Using presto to show data table
+```
+presto:default> show tables;
+```
 
-7. What swords are purchased most at a discount?
+```
+presto:default> describe purchases;
+```
+
+### Using presto to pull data
+```
+presto:default> select * from purchases;
+```
 
