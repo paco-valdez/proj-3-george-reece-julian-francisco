@@ -56,7 +56,7 @@ class PurchaseEvent(BaseModel):
     api_string: Optional[str]
     request_status: Optional[str] = 'incomplete'
 
-@app.route("/purchase", methods=['POST'])
+@app.route("/purchase", methods=['POST', 'GET'])
 def purchase():
     # Normal behavior first
     try:
@@ -92,12 +92,11 @@ def purchase():
 class GuildActionEvent(BaseModel):
     user_id: int
     guild_id: int
-    action: Optional[str] = None
-    addl_data: Optional[str] = None
+    action: Optional[str] = 'None'
     api_string: Optional[str]
     request_status: Optional[str] = 'incomplete'
 
-@app.route("/guild", methods=['POST'])
+@app.route("/guild", methods=['POST', 'GET'])
 def guild_action():
     # Normal behavior first
     try:
@@ -115,7 +114,7 @@ def guild_action():
             "api_string": json.dumps(content)
         })
     event = event.dict()
-    log_to_kafka("guild_action", event)
+    log_to_kafka("guild", event)
     return event
 
 if __name__ == '__main__':

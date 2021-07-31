@@ -59,14 +59,31 @@ docker-compose exec kafka \
     --replication-factor 1 \
     --if-not-exists --zookeeper zookeeper:32181
 ```
+```
+docker-compose exec kafka \
+  kafka-topics \
+    --create \
+    --topic guild \
+    --partitions 1 \
+    --replication-factor 1 \
+    --if-not-exists --zookeeper zookeeper:32181
+```
 
-### In a separate cmd, use kafkacat to continuously read from `events` topic
+### In a separate cmds, use kafkacat to continuously read from the topics
 ```
 cd ~/w205/proj-3-george-reece-julian-francisco/baseline/
 ```
 ```
 docker-compose exec mids \
   kafkacat -C -b kafka:29092 -t events -o beginning
+```
+```
+docker-compose exec mids \
+  kafkacat -C -b kafka:29092 -t purchases -o beginning
+```
+```
+docker-compose exec mids \
+  kafkacat -C -b kafka:29092 -t guild -o beginning
 ```
 
 ### In a separate cmd, activate the api flask
@@ -92,7 +109,8 @@ docker-compose exec mids /w205/proj-3-george-reece-julian-francisco/baseline/cre
 
 ```
 docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/extract_events.py
-docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/filtered_writes.py
+docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/write_purchases.py
+docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/write_guild.py
 ```
 
 ## Part 2: Optional Extract the data from the HDFS/parquet to Spark SQL
