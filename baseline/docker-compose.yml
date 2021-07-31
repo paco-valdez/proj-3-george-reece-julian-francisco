@@ -35,6 +35,7 @@ services:
       - "8020" # nn
       - "50070" # nn http
       - "8888" # hue
+      - "9083" # hive thrift
     #ports:
     #- "8888:8888"
     extra_hosts:
@@ -58,6 +59,18 @@ services:
       - "moby:127.0.0.1"
     command: bash
 
+  presto:
+    image: midsw205/presto:0.0.1
+    hostname: presto
+    volumes:
+      - ~/w205:/w205
+    expose:
+      - "8080"
+    environment:
+      HIVE_THRIFTSERVER: cloudera:9083
+    extra_hosts:
+      - "moby:127.0.0.1"
+      
   mids:
     image: python:3.7-alpine
     stdin_open: true
