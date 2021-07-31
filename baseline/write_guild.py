@@ -3,15 +3,7 @@
 """
 import json
 from pyspark.sql import SparkSession, Row
-from pyspark.sql.functions import udf
-
-
-@udf('boolean')
-def is_purchase(event_as_json):
-    event = json.loads(event_as_json)
-    if event['event_type'] == 'purchase_sword':
-        return True
-    return False
+# from pyspark.sql.functions import udf
 
 
 def main():
@@ -26,27 +18,26 @@ def main():
         .read \
         .format("kafka") \
         .option("kafka.bootstrap.servers", "kafka:29092") \
-        .option("subscribe", "events") \
+        .option("subscribe", "guild") \
         .option("startingOffsets", "earliest") \
         .option("endingOffsets", "latest") \
         .load()
 
-    purchase_events = raw_events \
+    guild_events = raw_events \
         .select(raw_events.value.cast('string').alias('raw'),
-                raw_events.timestamp.cast('string')) \
-        .filter(is_purchase('raw'))
+                raw_events.timestamp.cast('string'))
 
-    extracted_purchase_events = purchase_events \
+    extracted_guild_events = guild_events \
         .rdd \
         .map(lambda r: Row(timestamp=r.timestamp, **json.loads(r.raw))) \
         .toDF()
-    extracted_purchase_events.printSchema()
-    extracted_purchase_events.show()
+    extracted_guild_events.printSchema()
+    extracted_guild_events.show()
 
-    extracted_purchase_events \
+    extracted_guild_events \
         .write \
         .mode('overwrite') \
-        .parquet('/tmp/purchases')
+        .parquet('/tmp/guild')
 
 
 if __name__ == "__main__":
