@@ -66,14 +66,19 @@ docker-compose exec kafka \
     --if-not-exists --zookeeper zookeeper:32181
 ```
 
-### In a separate cmd,  use kafkacat to continuously read from `events` topic
-
+### In a separate cmd, use kafkacat to continuously read from `events` topic
+```
+cd ~/w205/proj-3-george-reece-julian-francisco/baseline/
+```
 ```
 docker-compose exec mids \
   kafkacat -C -b kafka:29092 -t events -o beginning
 ```
 
 ### In a separate cmd, activate the api flask
+```
+cd ~/w205/proj-3-george-reece-julian-francisco/baseline/
+```
 
 ```
 docker-compose exec mids \
@@ -81,7 +86,7 @@ docker-compose exec mids \
   flask run --host 0.0.0.0
 ```
 
-### Use Apache Bench to generate test data for your pipeline
+### Back in original cmd, use Apache Bench to generate test data for your pipeline
 
 ```
 docker-compose exec mids chmod 755 /w205/proj-3-george-reece-julian-francisco/baseline/create_test_data.sh
