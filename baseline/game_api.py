@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import json
-from typing import Optional, Literal
+from typing import Optional
 from pydantic import BaseModel, ValidationError
 from kafka import KafkaProducer
 from kafka.errors import NoBrokersAvailable

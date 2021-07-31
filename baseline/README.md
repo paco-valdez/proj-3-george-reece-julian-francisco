@@ -33,7 +33,7 @@ docker-compose up -d
 ### Install requirements for Rest API
 
 ```
-docker-compose exec mids pip install -r
+docker-compose exec mids pip install -r \
  /w205/proj-3-george-reece-julian-francisco/baseline/requirements.txt
 ```
 
@@ -49,13 +49,22 @@ docker-compose exec mids apk add apache2-utils
 docker-compose exec cloudera hadoop fs -ls /tmp/
 ```
 
-### Create a topic `events`
+### Create required kafka topics
 
 ```
 docker-compose exec kafka \
   kafka-topics \
     --create \
     --topic events \
+    --partitions 1 \
+    --replication-factor 1 \
+    --if-not-exists --zookeeper zookeeper:32181
+```
+```
+docker-compose exec kafka \
+  kafka-topics \
+    --create \
+    --topic purchases \
     --partitions 1 \
     --replication-factor 1 \
     --if-not-exists --zookeeper zookeeper:32181
@@ -79,6 +88,7 @@ docker-compose exec mids \
 ### Use Apache Bench to generate test data for your pipeline
 
 ```
+docker-compose exec mids chmod 755 /w205/proj-3-george-reece-julian-francisco/baseline/create_test_data.sh
 docker-compose exec mids /w205/proj-3-george-reece-julian-francisco/baseline/create_test_data.sh
 ```
 
