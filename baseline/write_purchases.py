@@ -3,6 +3,7 @@
 """
 import json
 from pyspark.sql import SparkSession, Row
+from pyspark.sql import functions as F
 # from pyspark.sql.functions import udf
 
 
@@ -31,6 +32,7 @@ def main():
         .rdd \
         .map(lambda r: Row(timestamp=r.timestamp, **json.loads(r.raw))) \
         .toDF()
+    extracted_purchase_events = extracted_purchase_events.select([F.col(col).alias(col.replace('-', '_')) for col in extracted_purchase_events.columns])
     extracted_purchase_events.printSchema()
     extracted_purchase_events.show()
 

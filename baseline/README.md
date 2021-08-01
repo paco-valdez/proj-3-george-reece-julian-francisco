@@ -15,7 +15,6 @@
 ```
 cd ~/w205/proj-3-george-reece-julian-francisco/baseline/
 ```
-
 ```
 docker-compose up -d
 ```
@@ -127,8 +126,26 @@ docker-compose exec spark pyspark
 purchases = spark.read.parquet('/tmp/purchases')
 purchases.show()
 purchases.registerTempTable('purchases')
-purchases_by_example2 = spark.sql("select * from purchases where host='user1.comcast.com'")
-purchases_by_example2.show()
+query = """
+create external table default.purchases
+  stored as parquet
+  location '/tmp/default/purchases'
+  as
+  select * from purchases
+"""
+spark.sql(query)
+
+guild = spark.read.parquet('/tmp/guild')
+guild.show()
+guild.registerTempTable('guild')
+query = """
+create external table default.guild
+  stored as parquet
+  location '/tmp/default/guild'
+  as
+  select * from guild
+"""
+spark.sql(query)
 ```
 
 ## Part 3: Show Pipeline creates data table in Hadoop using Presto
@@ -145,10 +162,14 @@ presto:default> show tables;
 
 ```
 presto:default> describe purchases;
+presto:default> describe guild;
 ```
 
 ### Using presto to pull data
 ```
 presto:default> select * from purchases;
+presto:default> select * from guild;
 ```
+
+
 
