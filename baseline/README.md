@@ -7,7 +7,20 @@
 
 - Each has metadata characterstic of such events (i.e., sword type, guild name,
   etc)
-  
+
+## Troubleshooting Fix
+
+There is an issue with one of the docker images used here. While replacement is always possible, a quicker fix may be to run the following code in ssh:
+
+```
+sudo -s
+echo 'GRUB_CMDLINE_LINUX_DEFAULT="vsyscall=emulate"' >> /etc/default/grub
+update-grub
+reboot
+```
+
+This should fix any problems you may encounter. Since this issue is not necessarily reproducible, we recommend you run through the below first before trying the above. 
+
 ## Part 1: Create the Pipeline from Flask to Data Extraction
 
 ### Setup the project 3 folder
@@ -15,7 +28,6 @@
 ```
 cd ~/w205/proj-3-george-reece-julian-francisco/baseline/
 ```
-
 ```
 docker-compose up -d
 ```
@@ -40,7 +52,7 @@ docker-compose exec cloudera hadoop fs -ls /tmp/
 ```
 
 ### Create required kafka topics
-
+<!-- 
 ```
 docker-compose exec kafka \
   kafka-topics \
@@ -49,7 +61,7 @@ docker-compose exec kafka \
     --partitions 1 \
     --replication-factor 1 \
     --if-not-exists --zookeeper zookeeper:32181
-```
+``` -->
 ```
 docker-compose exec kafka \
   kafka-topics \
@@ -75,10 +87,6 @@ cd ~/w205/proj-3-george-reece-julian-francisco/baseline/
 ```
 ```
 docker-compose exec mids \
-  kafkacat -C -b kafka:29092 -t events -o beginning
-```
-```
-docker-compose exec mids \
   kafkacat -C -b kafka:29092 -t purchases -o beginning
 ```
 ```
@@ -97,39 +105,99 @@ docker-compose exec mids \
   flask run --host 0.0.0.0
 ```
 
-### Back in original cmd, use Apache Bench to generate test data for your pipeline
+### Back in original cmd, Extract test data from Kafka, land them into HDFS/parquet to make them available for analysis.
 
 ```
-docker-compose exec mids chmod 755 /w205/proj-3-george-reece-julian-francisco/baseline/create_test_data.sh
-docker-compose exec mids /w205/proj-3-george-reece-julian-francisco/baseline/create_test_data.sh
+docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/stream_purchases.py
+docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/stream_guild.py
+```
+
+###  Use Apache Bench to generate test data for your pipeline
+
+```
+docker-compose exec mids chmod 755 /w205/proj-3-george-reece-julian-francisco/baseline/scripts/create_test_data.sh
+docker-compose exec mids /w205/proj-3-george-reece-julian-francisco/baseline/scripts/create_test_data.sh
 ```
 
 
-### Extract test data from Kafka, land them into HDFS/parquet to make them available for analysis.
-
-```
-docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/extract_events.py
-docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/write_purchases.py
-docker-compose exec spark spark-submit /w205/proj-3-george-reece-julian-francisco/baseline/write_guild.py
-```
 
 ## Part 2: Optional Extract the data from the HDFS/parquet to Spark SQL
 
 ### Spin up a pyspark process using the `spark` container
 
 ```
-docker-compose exec spark pyspark
+docker-compose exec cloudera hive
 ```
 
-### At the pyspark prompt, read from kafka
+```sql
+    create external table if not exists default.purchases (
+        raw_event       string,
+        timestamp       string,
+        user_id         int,
+        item_id         int,
+        quantity        int,
+        price_paid      double,
+        vendor_id       int,
+        api_string      string,
+        request_status  string,
+        content_length  string,
+        content_type    string,
+        host            string,
+        user_agent      string,
+        accept          string
+        )
+    stored as parquet 
+    location '/tmp/default/purchases'
+    tblproperties ("parquet.compress"="SNAPPY");
+```
+
+```sql
+    create external table if not exists default.guild (
+        raw_event       string,
+        timestamp       string,
+        user_id         int,
+        guild_id        int,
+        action          string,
+        api_string      string,
+        request_status  string,
+        content_length  string,
+        content_type    string,
+        host            string,
+        user_agent      string,
+        accept          string
+        )
+    stored as parquet 
+    location '/tmp/default/guild'
+    tblproperties ("parquet.compress"="SNAPPY");
+```
+
+<!-- ### At the pyspark prompt, read from kafka
 
 ```
 purchases = spark.read.parquet('/tmp/purchases')
 purchases.show()
 purchases.registerTempTable('purchases')
-purchases_by_example2 = spark.sql("select * from purchases where host='user1.comcast.com'")
-purchases_by_example2.show()
-```
+query = """
+create external table default.purchases
+  stored as parquet
+  location '/tmp/default/purchases'
+  as
+  select * from purchases
+"""
+spark.sql(query)
+
+guild = spark.read.parquet('/tmp/guild')
+guild.show()
+guild.registerTempTable('guild')
+query = """
+create external table default.guild
+  stored as parquet
+  location '/tmp/default/guild'
+  as
+  select * from guild
+"""
+spark.sql(query)
+``` -->
 
 ## Part 3: Show Pipeline creates data table in Hadoop using Presto
 
@@ -145,10 +213,14 @@ presto:default> show tables;
 
 ```
 presto:default> describe purchases;
+presto:default> describe guild;
 ```
 
 ### Using presto to pull data
 ```
 presto:default> select * from purchases;
+presto:default> select * from guild;
 ```
+
+
 
