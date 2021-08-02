@@ -9,18 +9,6 @@
 - Each has metadata characterstic of such events (i.e., sword type, guild name,
   etc)
 
-## Troubleshooting Fix
-
-There is an issue with one of the docker images used here. While replacement is always possible, a quicker fix may be to run the following code in ssh:
-
-```
-sudo -s
-echo 'GRUB_CMDLINE_LINUX_DEFAULT="vsyscall=emulate"' >> /etc/default/grub
-update-grub
-reboot
-```
-
-This should fix any problems you may encounter. Since this issue is not necessarily reproducible, we recommend you run through the below first before trying the above. 
 
 ## Part 1: Create the Pipeline from Flask to Data Extraction
 
