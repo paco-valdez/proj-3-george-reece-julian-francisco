@@ -124,7 +124,7 @@ docker-compose exec mids /w205/proj-3-george-reece-julian-francisco/baseline/scr
 
 ## Part 2: Optional Extract the data from the HDFS/parquet to Spark SQL
 
-### Spin up a pyspark process using the `spark` container
+### Add a hive metastore to the streaming tables
 
 ```
 docker-compose exec cloudera hive
