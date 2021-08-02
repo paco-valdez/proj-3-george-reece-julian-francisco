@@ -1,3 +1,4 @@
+#### Julian Hicks, Reece Koe, Paco Valdez and George Jiang
 # Project 3: Understanding User Behavior
 
 - You're a data scientist at a game development company  
